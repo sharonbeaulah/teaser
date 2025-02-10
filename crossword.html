@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crossword Puzzle</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .green {
+            background-color: #77dd77; /* Pastel green */
+            color: white;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+
+        .left-section {
+            flex: 2;
+            text-align: center;
+        }
+
+        .right-section {
+            flex: 1;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Crossword Table */
+        #crossword {
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        #crossword td {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid #000;
+            position: relative;
+        }
+
+        #crossword input {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #crossword td.empty-cell {
+            background-color: #000; /* Grey for empty cells only */
+        }
+
+        .hint-number {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            font-size: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* Hints */
+        
+    /* Hints */
+    .hints h2 {
+        margin-top: 0;
+        text-align: left; /* Align the heading to the left */
+    }
+
+    .hints p {
+        font-weight: bold;
+        text-align: left; /* Align Horizontal and Vertical labels to the left */
+        margin-bottom: 5px; /* Add spacing below the labels */
+    }
+    
+    .hints ul {
+        list-style: none; /* Removes bullet points */
+        padding-left: 0; /* Aligns text with the left edge */
+        margin-left: 0; /* Removes any extra left margin */
+        text-align: left; /* Align the list items to the left */
+    }
+
+    .hints li {
+        margin-bottom: 8px; /* Adds spacing between each hint */
+    }
+
+
+        /* Buttons */
+        .buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .buttons button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        /* Timer and Message */
+        #timer {
+            text-align: right;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        #message {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div id="start-screen" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <button onclick="startGame()" style="font-size: 24px; padding: 10px 20px;">Start</button>
+    </div>
+
+    <div id="game-content" style="display: none;">
+        <div id="timer">Time: 00:00</div>
+        <h1 style="text-align: center; font-weight: bold; margin-bottom: 20px;">Crossword Puzzle</h1>
+
+        <!-- Crossword Puzzle and Hints Layout -->
+        <div class="container">
+            <!-- Left Section: Crossword Puzzle -->
+            <div class="left-section">
+                <table id="crossword"></table>
+            </div>
+
+            <!-- Right Section: Hints -->
+            <div class="right-section">
+                <h2>Hints</h2>
+                <p text-align: left;><strong>Horizontal:</strong></p>
+                <ul style="list-style: none; text-align: left; padding-left: 0; margin-left: 0;">
+                    <li>1. Leading organization in artificial intelligence</li>
+                    <li>4. Satellite internet venture by SpaceX</li>
+                    <li>6. Acronym for "Large Language Model"</li>
+                    <li>9. One of Meta's large language AI models</li>
+                </ul>
+                <p text-align: left;><strong>Vertical:</strong></p>
+                <ul style="list-style: none; text-align: left; padding-left: 0; margin-left: 0;">
+                    <li>2. CEO associated with OpenAI</li>
+                    <li>3. AI startup making headlines</li>
+                    <li>5. GitHub's AI-powered code assistant</li>
+                    <li>7. Basic unit of the brain</li>
+                    <li>8. When an AI generates incorrect or nonsensical information</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="buttons">
+            <button onclick="validatePuzzle()">Check Answers</button>
+            <button class="home-button" onclick="window.location.href='index.html'">Back to Home</button>
+        </div>
+
+        <p id="message"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

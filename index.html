@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Puzzle Page</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            background-image: url('bangalore.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007BFF; /* Blue background */
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        .green {
+            background-color: #77dd77; /* Pastel green */
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Fun Puzzle Page</h1>
+    <h2 id="welcomeMessage"></h2>
+    <input type="email" id="email" placeholder="Enter your email" required>
+    <button onclick="storeEmail()">Enter</button>
+
+    <br><br>
+    <div id="startPage">
+        <button id="sudokuButton" onclick="startGame('sudoku')">Sudoku</button>
+        <button id="crosswordButton" onclick="startGame('crossword')">Crossword</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sudokuCompleted = localStorage.getItem('sudokuCompleted');
+            const crosswordCompleted = localStorage.getItem('crosswordCompleted');
+            const sudokuButton = document.getElementById('sudokuButton');
+            const crosswordButton = document.getElementById('crosswordButton');
+            const emailInput = document.getElementById('email');
+            const welcomeMessage = document.getElementById('welcomeMessage');
+
+            // Display a welcome message if the email is stored
+            const storedEmail = localStorage.getItem('userEmail');
+            if (storedEmail) {
+                emailInput.value = storedEmail;
+                welcomeMessage.textContent = `Welcome ${storedEmail.split('@')[0]}`;
+            }
+
+            // Turn the Sudoku button green if completed
+            if (sudokuCompleted === "true") {
+                sudokuButton.classList.add('green');
+            }
+
+            // Turn the Crossword button green if completed
+            if (crosswordCompleted === "true") {
+                crosswordButton.classList.add('green');
+            }
+        });
+
+        function storeEmail() {
+            const email = document.getElementById('email').value;
+            if (email) {
+                localStorage.setItem('userEmail', email);
+                document.getElementById('welcomeMessage').textContent = `Welcome ${email.split('@')[0]}`;
+            } else {
+                alert('Email is required to proceed.');
+            }
+        }
+
+        function startGame(gameType) {
+            const email = document.getElementById('email').value;
+            if (!email) {
+                alert('Please enter your email before proceeding.');
+                return;
+            }
+            localStorage.setItem('userEmail', email);
+            window.location.href = gameType + ".html";
+        }
+    </script>
+</body>
+</html>
