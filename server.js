@@ -1,14 +1,18 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
+const path = require("path"); // Add path for portability
 
 // Initialize the express app
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000; // Use dynamic port for Render, fallback to 3000
 
 // Middleware
 app.use(bodyParser.json());
 app.use(require("cors")());
+
+// Path to the data.json file
+const dataFilePath = path.join(__dirname, "data.json");
 
 // POST route to store user data
 app.post("/store-data", (req, res) => {
@@ -24,7 +28,7 @@ app.post("/store-data", (req, res) => {
         timestamp: new Date().toISOString(),
     };
 
-    fs.readFile("data.json", "utf8", (err, data) => {
+    fs.readFile(dataFilePath, "utf8", (err, data) => {
         if (err && err.code !== "ENOENT") {
             console.error("Error reading file:", err);
             return res.status(500).json({ error: "Failed to read data." });
@@ -50,7 +54,7 @@ app.post("/store-data", (req, res) => {
 
         const updatedData = [...existingData, userData];
 
-        fs.writeFile("data.json", JSON.stringify(updatedData, null, 2), (writeErr) => {
+        fs.writeFile(dataFilePath, JSON.stringify(updatedData, null, 2), (writeErr) => {
             if (writeErr) {
                 console.error("Error writing to file:", writeErr);
                 return res.status(500).json({ error: "Failed to store data." });
@@ -62,7 +66,7 @@ app.post("/store-data", (req, res) => {
 
 // GET route to retrieve stored data
 app.get("/get-data", (req, res) => {
-    fs.readFile("data.json", "utf8", (err, data) => {
+    fs.readFile(dataFilePath, "utf8", (err, data) => {
         if (err) {
             console.error("Error reading file:", err);
             return res.status(500).json({ error: "Failed to retrieve data." });
@@ -73,5 +77,5 @@ app.get("/get-data", (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+    console.log(`Server running on port ${port}`);
 });
