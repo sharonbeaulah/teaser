@@ -137,85 +137,81 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function storeUserData(email, timer) {
-                    if (!email || !timer) {
-                        console.error("Email or timer value is missing!");
-                        return;
-                    }
-                
-                    try {
-                        const response = await fetch("http://localhost:3000/store-data", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({ email, timer }),
-                        });
-                
-                        if (response.ok) {
-                            console.log("User data stored successfully!");
-                        } else {
-                            console.error("Failed to store user data:", await response.json());
-                        }
-                    } catch (error) {
-                        console.error("Error while storing user data:", error);
-                    }
-                }
-                
+        if (!email || !timer) {
+            console.error("Email or timer value is missing!");
+            return;
+        }
+
+        try {
+            const response = await fetch("https://fun-trailer.onrender.com/store-data", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, timer }),
+            });
+
+            if (response.ok) {
+                console.log("User data stored successfully!");
+            } else {
+                console.error("Failed to store user data:", await response.json());
+            }
+        } catch (error) {
+            console.error("Error while storing user data:", error);
+        }
+    }
+
     function goBackToHome() {
         window.location.href = 'index.html';
     }
 
     // Arrow key navigation
-    // Arrow key navigation
-// Arrow key navigation
-document.addEventListener('keydown', (event) => {
-    if (!focusedInput) return;
+    document.addEventListener('keydown', (event) => {
+        if (!focusedInput) return;
 
-    // Get all editable inputs
-    const inputs = Array.from(document.querySelectorAll('input'));
+        // Get all editable inputs
+        const inputs = Array.from(document.querySelectorAll('input'));
 
-    // Get the row and column of the currently focused input
-    const currentRow = parseInt(focusedInput.dataset.row);
-    const currentCol = parseInt(focusedInput.dataset.col);
+        // Get the row and column of the currently focused input
+        const currentRow = parseInt(focusedInput.dataset.row);
+        const currentCol = parseInt(focusedInput.dataset.col);
 
-    let nextRow = currentRow;
-    let nextCol = currentCol;
+        let nextRow = currentRow;
+        let nextCol = currentCol;
 
-    // Determine the next row and column based on the key pressed
-    switch (event.key) {
-        case 'ArrowUp':
-            nextRow = currentRow - 1; // Move up one row
-            break;
+        // Determine the next row and column based on the key pressed
+        switch (event.key) {
+            case 'ArrowUp':
+                nextRow = currentRow - 1; // Move up one row
+                break;
 
-        case 'ArrowDown':
-            nextRow = currentRow + 1; // Move down one row
-            break;
+            case 'ArrowDown':
+                nextRow = currentRow + 1; // Move down one row
+                break;
 
-        case 'ArrowLeft':
-            nextCol = currentCol - 1; // Move left one column
-            break;
+            case 'ArrowLeft':
+                nextCol = currentCol - 1; // Move left one column
+                break;
 
-        case 'ArrowRight':
-            nextCol = currentCol + 1; // Move right one column
-            break;
+            case 'ArrowRight':
+                nextCol = currentCol + 1; // Move right one column
+                break;
 
-        default:
-            return; // Ignore other keys
-    }
+            default:
+                return; // Ignore other keys
+        }
 
-    // Find the next input element with the corresponding row and column
-    const nextInput = inputs.find(input =>
-        parseInt(input.dataset.row) === nextRow &&
-        parseInt(input.dataset.col) === nextCol
-    );
+        // Find the next input element with the corresponding row and column
+        const nextInput = inputs.find(input =>
+            parseInt(input.dataset.row) === nextRow &&
+            parseInt(input.dataset.col) === nextCol
+        );
 
-    // Focus the next input if it exists
-    if (nextInput) {
-        nextInput.focus();
-    }
-});
-
-
+        // Focus the next input if it exists
+        if (nextInput) {
+            nextInput.focus();
+        }
+    });
 
     window.startGame = startGame;
     window.validatePuzzle = validatePuzzle;

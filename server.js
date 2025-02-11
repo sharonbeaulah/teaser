@@ -18,6 +18,8 @@ const dataFilePath = path.join(__dirname, "data.json");
 app.post("/store-data", (req, res) => {
     const { email, timer } = req.body;
 
+    console.log("Incoming data:", { email, timer }); // Log the incoming data
+
     if (!email || !timer) {
         return res.status(400).json({ error: "Email and timer are required." });
     }
@@ -28,7 +30,9 @@ app.post("/store-data", (req, res) => {
         timestamp: new Date().toISOString(),
     };
 
-    fs.readFile(dataFilePath, "utf8", (err, data) => {
+    fs.readFile("data.json", "utf8", (err, data) => {
+        console.log("Existing file data:", data); // Log the current data.json content
+
         if (err && err.code !== "ENOENT") {
             console.error("Error reading file:", err);
             return res.status(500).json({ error: "Failed to read data." });
@@ -49,20 +53,23 @@ app.post("/store-data", (req, res) => {
         );
 
         if (emailExists) {
+            console.log("Email already exists, skipping storage.");
             return res.status(200).json({ message: "Email already exists. Data not stored again." });
         }
 
         const updatedData = [...existingData, userData];
 
-        fs.writeFile(dataFilePath, JSON.stringify(updatedData, null, 2), (writeErr) => {
+        fs.writeFile("data.json", JSON.stringify(updatedData, null, 2), (writeErr) => {
             if (writeErr) {
                 console.error("Error writing to file:", writeErr);
                 return res.status(500).json({ error: "Failed to store data." });
             }
+            console.log("Data written successfully:", userData); // Log the newly written data
             res.status(200).json({ success: "Data stored successfully!" });
         });
     });
 });
+
 
 // GET route to retrieve stored data
 app.get("/get-data", (req, res) => {
