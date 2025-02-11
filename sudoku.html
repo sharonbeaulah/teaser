@@ -231,7 +231,7 @@
 
         function validateSudoku() {
             const message = document.getElementById("message");
-            let isCorrect = false;
+            let isCorrect = true;
 
             const cells = document.querySelectorAll('.sudoku-container .cell');
             cells.forEach((cell, index) => {
@@ -241,7 +241,7 @@
                     const input = cell.querySelector('input');
                     const value = parseInt(input.value, 10);
                     if (value !== solution[row][col]) {
-                        isCorrect = true;
+                        isCorrect = false;
                     }
                 }
             });
