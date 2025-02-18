@@ -228,29 +228,23 @@
             });
         }
 
+        const SERVER_URL = "http://134.64.244.80:5000";  // Replace with your Linux server's IP
+        const game_type = "sudoku"
+
         async function storeUserData(email, timer) {
             if (!email || !timer) {
                 console.error("Email or timer value is missing!");
                 return;
             }
 
-            try {
-                const response = await fetch("https://teaser-9lxj.onrender.com/store-data", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ email, timer }),
-                });
+            const response = await fetch(`${SERVER_URL}/store-data`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ game_type, email, timervalue })
+            });
 
-                if (response.ok) {
-                    console.log("User data stored successfully!");
-                } else {
-                    console.error("Failed to store user data:", await response.json());
-                }
-            } catch (error) {
-                console.error("Error while storing user data:", error);
-            }
+            const result = await response.json();
+            alert(result.message);
         }
 
         function validateSudoku() {

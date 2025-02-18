@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function storeUserData(email, timer) {
+    /* async function storeUserData(email, timer) {
         if (!email || !timer) {
             console.error("Email or timer value is missing!");
             return;
@@ -159,7 +159,22 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error("Error while storing user data:", error);
         }
+    } */
+
+    const SERVER_URL = "http://134.64.244.80:5000";  // Replace with your Linux server's IP
+    const game_type = "sudoku"
+
+    async function storeUserData(game_type, email, timervalue) {
+        const response = await fetch(`${SERVER_URL}/store-data`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ game_type, email, timervalue })
+        });
+
+        const result = await response.json();
+        alert(result.message);
     }
+
 
     function goBackToHome() {
         window.location.href = 'index.html';
