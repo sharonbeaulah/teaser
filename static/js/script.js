@@ -105,11 +105,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function validatePuzzle() {
         const inputs = document.querySelectorAll("input");
+        let isFilled = true;
         let isCorrect = true;
 
         inputs.forEach((inputElement) => {
             const row = inputElement.dataset.row;
             const col = inputElement.dataset.col;
+            // Check if input is empty
+            if (inputElement.value.trim() === "") {
+                isFilled = false; // Mark as not fully filled
+            }
             if (inputElement.value.toUpperCase() !== crosswordData[row][col]) {
                 isCorrect = false;
             }
@@ -120,21 +125,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const timerValue = document.getElementById("timer").textContent; // Get timer value
         const email = localStorage.getItem("userEmail"); // Fetch user's email
 
-        if (isCorrect) {
-            stopTimer();
-            message.textContent = "Congratulations! You solved the puzzle!";
-            if (backButton) {
-                backButton.classList.add("green");
-            }
-            localStorage.setItem("crosswordCompleted", "true");
-            localStorage.setItem("timerValue", timerValue);
 
-            // Store user data in the backend
-            storeUserData(email, timerValue);
+        if (isFilled) {
+            if (confirm("Do you want to submit?")) {
+                stopTimer();
+                message.textContent = "Your answers have been submitted!!";
+                if (backButton) {
+                    backButton.classList.add("green");
+                }
+                localStorage.setItem("crosswordCompleted", "true");
+                localStorage.setItem("timerValue", timerValue);
+                if (isCorrect) {storeUserData(email, timerValue);}
         } else {
             message.textContent = "Keep trying!";
         }
-    }
+       } else {
+        message.textContent = "There are few unfilled boxes. Enter all the answers before submitting.";
+       }
+}
 
     /* async function storeUserData(email, timer) {
         if (!email || !timer) {
@@ -164,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const SERVER_URL = "http://134.64.244.80:5000";  // Replace with your Linux server's IP
     const game_type = "sudoku"
 
-    async function storeUserData(game_type, email, timervalue) {
+    async function storeUserData(email, timervalue) {
         const response = await fetch(`${SERVER_URL}/store-data`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

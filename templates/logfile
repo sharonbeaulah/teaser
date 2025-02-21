@@ -1,0 +1,7 @@
+2025-02-18 15:54:41.861 IST [4106702] LOG:  starting PostgreSQL 16.1 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0, 64-bit
+2025-02-18 15:54:41.861 IST [4106702] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-02-18 15:54:41.933 IST [4106702] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2025-02-18 15:54:42.048 IST [4106713] LOG:  database system was shut down at 2025-02-18 15:54:15 IST
+2025-02-18 15:54:42.081 IST [4106702] LOG:  database system is ready to accept connections
+2025-02-18 15:59:42.140 IST [4106711] LOG:  checkpoint starting: time
+2025-02-18 16:01:16.443 IST [4106711] LOG:  checkpoint complete: wrote 935 buffers (5.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=94.066 s, sync=0.089 s, total=94.304 s; sync files=310, longest=0.030 s, average=0.001 s; distance=4294 kB, estimate=4294 kB; lsn=0/18B5120, redo lsn=0/18B50E8

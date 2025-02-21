@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fun Puzzle Page</title>
+
     <style>
         body {
             text-align: center;
             font-family: Arial, sans-serif;
             margin: 50px;
-            background-image: url('bangalore.jpg');
+            background-image: url("{{ url_for('static', filename='images/bangalore.jpg') }}");
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -35,6 +36,7 @@
     </style>
 </head>
 <body>
+
     <h1>Welcome to Fun Puzzle Page</h1>
     <h2 id="welcomeMessage"></h2>
     <input type="email" id="email" placeholder="Enter your email" required>
@@ -90,8 +92,9 @@
                 return;
             }
             localStorage.setItem('userEmail', email);
-            window.location.href = gameType + ".html";
+            window.location.href = `/${gameType}`;
         }
     </script>
+
 </body>
 </html>

@@ -139,10 +139,11 @@
     <div class="sudoku-container" id="sudoku-container"></div>
     <div style="display: flex; justify-content: space-between; width: 20%;">
         <button class="clear-button" onclick="clearSudoku()">Clear</button>
-        <button class="validate-button" onclick="validateSudoku()">Validate</button>
+        <button class="validate-button" onclick="validateSudoku()">Submit</button>
     </div>
     <div style="display: flex; justify-content: center; width: 100%; margin-top: 10px;">
-        <button class="home-button" id="backToHome" onclick="window.location.href='{{ url_for('index') }}'">Back to Home</button>
+        <button class="home-button" id="backToHome" onclick="window.location.href='/'">Back to Home</button>
+
     </div>
 
     <!-- Add the missing message div -->
@@ -198,7 +199,7 @@
             [7, null, null, null, 4, null, null, null, 5],
             [6, 7, 1, null, 2, 3, null, null, 8],
             [3, null, 5, null, null, null, 2, 1, null],
-            [2, 4, null, 1, 9, null, 6, 3, null],
+            [null, 4, null, 1, 9, null, 6, 3, null],
             [null, 6, null, null, 3, null, null, 5, null],
             [9, null, 7, null, null, null, 3, null, 2],
             [5, null, 4, null, 1, 9, null, 8, 6]
@@ -250,30 +251,45 @@
         function validateSudoku() {
             const message = document.getElementById("message");
             let isCorrect = true;
+            let isFilled = true;
 
             const cells = document.querySelectorAll('.sudoku-container .cell');
             cells.forEach((cell, index) => {
-                const row = Math.floor(index / 9);
-                const col = index % 9;
-                if (!cell.classList.contains('fixed')) {
-                    const input = cell.querySelector('input');
-                    const value = parseInt(input.value, 10);
-                    if (value !== solution[row][col]) {
-                        isCorrect = false;
-                    }
+            const row = Math.floor(index / 9);
+            const col = index % 9;
+            
+            if (!cell.classList.contains('fixed')) {
+                const input = cell.querySelector('input');
+                const value = parseInt(input.value, 10);
+        
+                // Check if the cell is empty
+                if (isNaN(value)) {
+                    isFilled = false;
                 }
-            });
-
-            if (isCorrect) {
+        
+                // Check if the value is correct
+                if (value !== solution[row][col]) {
+                    isCorrect = false;
+                }
+            }
+        });
+        
+        if (!isFilled) {
+            message.textContent = "There are few unfilled boxes. Enter all the answers before submitting.";
+        } else {
+            // Show confirmation popup
+            if (confirm("Do you want to submit?")) {
+                if (isCorrect) {
                 stopTimer();
                 document.getElementById('backToHome').classList.add('green');
                 const email = localStorage.getItem("userEmail");
                 const timer = `Time: ${formatTime(seconds)}`;
                 storeUserData(email, timer);
-                message.textContent = "Congratulations! You solved the Sudoku!";
-            } else {
-                message.textContent = "Keep trying!";
+                message.textContent = "Your answers have been submitted!";
             }
+            }
+        } 
+            
         }
 
         generateSudoku();

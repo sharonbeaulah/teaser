@@ -1,0 +1,29 @@
+2025-02-18 15:54:41.861 IST [4106702] LOG:  starting PostgreSQL 16.1 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0, 64-bit
+2025-02-18 15:54:41.861 IST [4106702] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-02-18 15:54:41.933 IST [4106702] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2025-02-18 15:54:42.048 IST [4106713] LOG:  database system was shut down at 2025-02-18 15:54:15 IST
+2025-02-18 15:54:42.081 IST [4106702] LOG:  database system is ready to accept connections
+2025-02-18 15:59:42.140 IST [4106711] LOG:  checkpoint starting: time
+2025-02-18 16:01:16.443 IST [4106711] LOG:  checkpoint complete: wrote 935 buffers (5.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=94.066 s, sync=0.089 s, total=94.304 s; sync files=310, longest=0.030 s, average=0.001 s; distance=4294 kB, estimate=4294 kB; lsn=0/18B5120, redo lsn=0/18B50E8
+2025-02-19 00:16:07.298 IST [50182] ERROR:  relation "responses" does not exist at character 13
+2025-02-19 00:16:07.298 IST [50182] STATEMENT:  INSERT INTO responses (game_type, email, timervalue) VALUES ('sudoku', 'isbchristina@gmail.com', 'Time: 00:54') ON CONFLICT (email) DO NOTHING
+2025-02-19 00:23:11.460 IST [53736] ERROR:  relation "responses" does not exist at character 13
+2025-02-19 00:23:11.460 IST [53736] STATEMENT:  INSERT INTO responses (game_type, email, timervalue) VALUES ('sudoku', 'test@example.com', '10:20') ON CONFLICT (email) DO NOTHING
+2025-02-19 00:23:27.410 IST [53736] ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2025-02-19 00:23:27.410 IST [53736] STATEMENT:  INSERT INTO responses (game_type, email, timervalue) VALUES ('sudoku', 'test@example.com', '10:20') ON CONFLICT (email) DO NOTHING
+2025-02-19 00:25:48.353 IST [54787] ERROR:  relation "responses" does not exist at character 13
+2025-02-19 00:25:48.353 IST [54787] STATEMENT:  INSERT INTO responses (game_type, email, timervalue) VALUES ('sudoku', 'test@example.com', '10:20') ON CONFLICT (email) DO NOTHING
+2025-02-19 00:30:42.987 IST [56799] FATAL:  database "nhegde" does not exist
+2025-02-19 00:30:47.172 IST [56830] FATAL:  database "nhegde" does not exist
+2025-02-19 00:30:51.916 IST [56862] FATAL:  database "nhegde" does not exist
+2025-02-19 00:32:31.506 IST [57501] FATAL:  database "nhegde" does not exist
+2025-02-19 00:32:45.082 IST [57589] FATAL:  role "postgres" does not exist
+2025-02-19 00:33:08.518 IST [57736] FATAL:  database "game_typw" does not exist
+2025-02-19 00:33:11.006 IST [57750] FATAL:  database "game_type" does not exist
+2025-02-19 00:34:50.800 IST [4106711] LOG:  checkpoint starting: time
+2025-02-19 00:34:55.687 IST [4106711] LOG:  checkpoint complete: wrote 46 buffers (0.3%); 0 WAL file(s) added, 0 removed, 0 recycled; write=4.627 s, sync=0.124 s, total=4.887 s; sync files=40, longest=0.096 s, average=0.004 s; distance=155 kB, estimate=3880 kB; lsn=0/18DBE88, redo lsn=0/18DBE50
+2025-02-19 00:39:50.788 IST [4106711] LOG:  checkpoint starting: time
+2025-02-19 00:39:51.814 IST [4106711] LOG:  checkpoint complete: wrote 9 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.837 s, sync=0.071 s, total=1.027 s; sync files=7, longest=0.056 s, average=0.010 s; distance=1 kB, estimate=3492 kB; lsn=0/18DC3B8, redo lsn=0/18DC380
+2025-02-19 00:44:50.871 IST [4106711] LOG:  checkpoint starting: time
+2025-02-19 00:44:51.308 IST [4106711] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.235 s, sync=0.059 s, total=0.437 s; sync files=3, longest=0.049 s, average=0.020 s; distance=0 kB, estimate=3143 kB; lsn=0/18DC568, redo lsn=0/18DC530
+2025-02-19 13:22:00.049 IST [61587] LOG:  unexpected EOF on client connection with an open transaction

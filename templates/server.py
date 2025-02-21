@@ -1,11 +1,5 @@
 from flask import Flask, request, jsonify, render_template
 import psycopg2
-import os
-
-cert_path = os.path.expanduser("~/ssl/cert.pem")
-key_path = os.path.expanduser("~/ssl/key.pem")
-
-
 
 app = Flask(__name__)
 
@@ -15,16 +9,8 @@ cursor = conn.cursor()
 
 @app.route('/')
 def home():
-    return render_template('index.html')
-
-@app.route('/sudoku')
-def sudoku_page():
-    return render_template('sudoku.html')
-
-@app.route('/crossword')
-def crossword_page():
-    return render_template('crossword.html')
-
+    return render_template('index.html')  # This will load index.html
+    
 
 
 @app.route('/store-data', methods=['POST'])
@@ -43,12 +29,9 @@ def store_data():
         cursor.execute("INSERT INTO responses (game_type, email, timervalue) VALUES (%s, %s, %s) ON CONFLICT (email) DO NOTHING", 
                        (game_type, email, timervalue))
         conn.commit()
-        return jsonify()
+        return jsonify({'message': 'Data stored successfully!'})
     except Exception as e:
-        conn.rollback()  # ✅ Rollback the transaction on error
-        return jsonify({'message': 'Error storing data', 'error': str(e)}), 500
-
-
+        return jsonify({'message': 'Error storing data: ' + str(e)}), 500
 
 @app.route('/get-data', methods=['GET'])
 def get_data():
@@ -56,7 +39,5 @@ def get_data():
     data = [{"game_type": row[0], "email": row[1], "timervalue": row[2]} for row in cursor.fetchall()]
     return jsonify(data)
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
-    #app.run(host="0.0.0.0", port=8443, ssl_context=(cert_path, key_path))
-
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
